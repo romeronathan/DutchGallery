@@ -1,0 +1,19 @@
+version: "3.4"
+services:
+  dutchtreat:
+    image: ${DOCKER_REGISTRY-}dutchtreat
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - skip_client_build=true
+  dutchtreat.angular:
+    image: ${DOCKER_REGISTRY-}dutchtreatangular
+    build:
+      context: .
+      dockerfile: ./ClientApp/Dockerfile
+    ports:
+      - "8080:8080"
+      - "49153:49153"
+    volumes:
+      - ./dutchtreat/ClientApp:/app
